@@ -6,6 +6,5 @@ where Input: Read
     let mut content = String::new();
     input.read_to_string(&mut content).or(Err(Error::NotUtf8))?;
     dbg!(content);
-    Err(Error::Parsing)
-    // Ok(())
+    Ok(())
 }
