@@ -4,10 +4,10 @@ fn get_nums<Input>(input: &mut Input) -> Result<Vec<i32>>
 where Input: Read
 {
     let mut content = String::new();
-    input.read_to_string(&mut content).or(Err(Error::NotUtf8))?;
+    input.read_to_string(&mut content).map_err(|_| Error::NotUtf8)?;
     let mut nums: Vec<i32> = Vec::new();
     for line in content.lines() {
-        let num = line.parse::<i32>().or(Err(Error::Parsing {content: String::from(line)}))?;
+        let num = line.parse::<i32>().map_err(|_| Error::Parsing {content: String::from(line)})?;
         nums.push(num);
     }
     Ok(nums)
