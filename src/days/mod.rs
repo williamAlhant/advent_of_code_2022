@@ -1,6 +1,7 @@
 pub mod error;
 pub mod day_1;
 pub mod y2020_day_1;
+pub mod y2020_day_25;
 
 pub use error::{Error, Result};
 

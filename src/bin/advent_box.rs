@@ -20,6 +20,7 @@ fn main() -> Result<()> {
         ("day_1_part_1", day_1_part_1 as DayFn<_, _>),
         ("y2020_day_1_part_1", days::y2020_day_1::y2020_day_1_part_1 as DayFn<_, _>),
         ("y2020_day_1_part_2", days::y2020_day_1::y2020_day_1_part_2 as DayFn<_, _>),
+        ("y2020_day_25_part_1", days::y2020_day_25::y2020_day_25_part_1 as DayFn<_, _>),
     ]);
     let day_str = matches.get_one::<String>("day").unwrap();
     let day_fn = map_day_str_to_fn.get(day_str.as_str()).context("Did not find day fn")?;
