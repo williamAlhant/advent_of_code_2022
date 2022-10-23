@@ -12,12 +12,12 @@ impl<'a> LinesWithCount<'a> {
             count: 1
         }
     }
-}
 
-fn get_an_i32_from_lines(lines: &mut LinesWithCount) -> Result<i32> {
-    let content = lines.lines.next().ok_or_else(|| Error::new_parsing_no_content(lines.count))?;
-    content.parse::<i32>().map_err(|_| Error::new_parsing(content, lines.count))
-                          .and_then(|ret| {lines.count += 1; Ok(ret)})
+    fn get_an_i32(&mut self) -> Result<i32> {
+        let content = self.lines.next().ok_or_else(|| Error::new_parsing_no_content(self.count))?;
+        content.parse::<i32>().map_err(|_| Error::new_parsing(content, self.count))
+                              .and_then(|ret| {self.count += 1; Ok(ret)})
+    }
 }
 
 struct KeyComputation {
@@ -81,8 +81,8 @@ where Input: Read
     input.read_to_string(&mut content).map_err(|_| Error::NotUtf8)?;
 
     let mut lines = LinesWithCount::new(content.lines());
-    let card_pubkey = get_an_i32_from_lines(&mut lines)?;
-    let door_pubkey = get_an_i32_from_lines(&mut lines)?;
+    let card_pubkey = lines.get_an_i32()?;
+    let door_pubkey = lines.get_an_i32()?;
 
     println!("Searching for card privkey");
     let mut card_privkey_computation = KeyComputation::new(card_pubkey as u64);
