@@ -62,8 +62,7 @@ pub fn day_1_common(content: String, num_highest: usize) -> Result<i32>
 pub fn day_1_part_1<Input>(input: &mut Input) -> Result<()>
 where Input: Read
 {
-    let mut content = String::new();
-    input.read_to_string(&mut content).map_err(|_| Error::NotUtf8)?;
+    let content = get_whole_input_as_string(input)?;
 
     println!("Max is {}", day_1_common(content, 1)?);
 
@@ -73,8 +72,7 @@ where Input: Read
 pub fn day_1_part_2<Input>(input: &mut Input) -> Result<()>
 where Input: Read
 {
-    let mut content = String::new();
-    input.read_to_string(&mut content).map_err(|_| Error::NotUtf8)?;
+    let content = get_whole_input_as_string(input)?;
 
     println!("Sum of highest sums is {}", day_1_common(content, 3)?);
 

@@ -12,5 +12,12 @@ pub mod all_days {
 
 mod internal_common {
     pub use super::{Result, Error};
-    pub use std::io::Read; 
+    pub use std::io::Read;
+
+    pub fn get_whole_input_as_string<Input>(input: &mut Input) -> Result<String>
+    where Input: Read {
+        let mut content = String::new();
+        input.read_to_string(&mut content).map_err(|_| Error::NotUtf8)?;
+        Ok(content)
+    }
 }

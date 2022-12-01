@@ -3,8 +3,7 @@ use crate::days::internal_common::*;
 fn get_nums<Input>(input: &mut Input) -> Result<Vec<i32>>
 where Input: Read
 {
-    let mut content = String::new();
-    input.read_to_string(&mut content).map_err(|_| Error::NotUtf8)?;
+    let content = get_whole_input_as_string(input)?;
     let mut nums: Vec<i32> = Vec::new();
     for (line, content) in content.lines().enumerate() {
         let num = content.parse::<i32>().map_err(|_| Error::new_parsing(content, line))?;

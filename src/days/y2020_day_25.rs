@@ -77,8 +77,7 @@ fn calc_encryption_key(pubkey_a: u64, privkey_b: u64, mod_val: u64) -> u64 {
 pub fn y2020_day_25_part_1<Input>(input: &mut Input) -> Result<()>
 where Input: Read
 {
-    let mut content = String::new();
-    input.read_to_string(&mut content).map_err(|_| Error::NotUtf8)?;
+    let content = get_whole_input_as_string(input)?;
 
     let mut lines = LinesWithCount::new(content.lines());
     let card_pubkey = lines.get_an_i32()?;
