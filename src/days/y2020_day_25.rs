@@ -68,7 +68,7 @@ impl KeyComputation {
 
 fn calc_encryption_key(pubkey_a: u64, privkey_b: u64, mod_val: u64) -> u64 {
     let mut k = 1;
-    for i in 0..privkey_b {
+    for _i in 0..privkey_b {
         k = (k * pubkey_a) % mod_val;
     }
     k

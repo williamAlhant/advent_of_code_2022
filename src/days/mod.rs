@@ -7,6 +7,7 @@ pub use error::{Error, Result};
 
 pub mod all_days {
     pub use super::day_1::day_1_part_1;
+    pub use super::day_1::day_1_part_2;
 }
 
 mod internal_common {
