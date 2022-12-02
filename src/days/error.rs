@@ -5,6 +5,8 @@ pub enum Error {
         content: Option<String>,
         line: usize
     },
+    #[error("Parsing error")]
+    ParsingToken,
     #[error("Not UTF-8")]
     NotUtf8,
     #[error("No solution")]

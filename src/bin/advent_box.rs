@@ -19,6 +19,8 @@ fn main() -> Result<()> {
     let map_day_str_to_fn = BTreeMap::from([
         ("day_1_part_1", day_1_part_1 as DayFn<_, _>),
         ("day_1_part_2", day_1_part_2 as DayFn<_, _>),
+        ("day_2_part_1", day_2_part_1 as DayFn<_, _>),
+        ("day_2_part_2", day_2_part_2 as DayFn<_, _>),
         ("y2020_day_1_part_1", days::y2020_day_1::y2020_day_1_part_1 as DayFn<_, _>),
         ("y2020_day_1_part_2", days::y2020_day_1::y2020_day_1_part_2 as DayFn<_, _>),
         ("y2020_day_25_part_1", days::y2020_day_25::y2020_day_25_part_1 as DayFn<_, _>),

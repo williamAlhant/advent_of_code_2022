@@ -1,5 +1,6 @@
 pub mod error;
 pub mod day_1;
+pub mod day_2;
 pub mod y2020_day_1;
 pub mod y2020_day_25;
 
@@ -8,6 +9,8 @@ pub use error::{Error, Result};
 pub mod all_days {
     pub use super::day_1::day_1_part_1;
     pub use super::day_1::day_1_part_2;
+    pub use super::day_2::day_2_part_1;
+    pub use super::day_2::day_2_part_2;
 }
 
 mod internal_common {
