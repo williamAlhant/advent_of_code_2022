@@ -13,6 +13,7 @@ pub mod all_days {
     pub use super::day_2::day_2_part_1;
     pub use super::day_2::day_2_part_2;
     pub use super::day_3::day_3_part_1;
+    pub use super::day_3::day_3_part_2;
 }
 
 mod internal_common {
