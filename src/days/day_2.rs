@@ -58,7 +58,7 @@ fn parse_first_column(c: char) -> Result<Shape> {
         'A' => Ok(Shape::Rock),
         'B' => Ok(Shape::Paper),
         'C' => Ok(Shape::Scissors),
-        _ => Err(Error::ParsingToken)
+        _ => Err(Error::new_token(0, 1))
     }
 }
 
@@ -67,7 +67,7 @@ fn parse_second_column(c: char) -> Result<Shape> {
         'X' => Ok(Shape::Rock),
         'Y' => Ok(Shape::Paper),
         'Z' => Ok(Shape::Scissors),
-        _ => Err(Error::ParsingToken)
+        _ => Err(Error::new_token(2, 1))
     }
 }
 
@@ -98,7 +98,7 @@ fn parse_second_column_part_2(c: char, his_shape: Shape) -> Result<Shape> {
         'X' => Ok(get_shape_for_desired_outcome(his_shape, Outcome::Loss)),
         'Y' => Ok(get_shape_for_desired_outcome(his_shape, Outcome::Draw)),
         'Z' => Ok(get_shape_for_desired_outcome(his_shape, Outcome::Win)),
-        _ => Err(Error::ParsingToken)
+        _ => Err(Error::new_token(2, 1))
     }
 }
 
@@ -108,7 +108,7 @@ where F: FnMut(&str) -> Result<()> {
         let line_num = i + 1;
         func(line).map_err(
             |e| match e {
-                Error::ParsingToken => Error::new_parsing(line, line_num),
+                Error::ParsingToken(token) => Error::new_parsing_with_token(line, line_num, token),
                 _ => e
             })?;
     }
@@ -125,7 +125,7 @@ where Input: Read
     do_each_line(content, |line| {
         let line: Vec<char> = line.chars().collect();
         if line.len() != 3 {
-            return Err(Error::ParsingToken);
+            return Err(Error::new_token(0, line.len()));
         }
         let his_shape = parse_first_column(line[0])?;
         let my_shape = parse_second_column(line[2])?;
@@ -148,7 +148,7 @@ where Input: Read
     do_each_line(content, |line| {
         let line: Vec<char> = line.chars().collect();
         if line.len() != 3 {
-            return Err(Error::ParsingToken);
+            return Err(Error::new_token(0, line.len()));
         }
         let his_shape = parse_first_column(line[0])?;
         let my_shape = parse_second_column_part_2(line[2], his_shape)?;
