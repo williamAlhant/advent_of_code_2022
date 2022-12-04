@@ -26,4 +26,19 @@ mod internal_common {
         input.read_to_string(&mut content).map_err(|_| Error::NotUtf8)?;
         Ok(content)
     }
+
+    pub fn do_for_each_line<I, F>(input: &mut I, mut func: F) -> Result<()>
+    where I: Read,
+    F: FnMut(&str) -> Result<()>
+    {
+        let content = get_whole_input_as_string(input)?;
+        for (line_idx, line) in content.lines().enumerate() {
+            func(line).map_err(
+                |e| match e {
+                    Error::ParsingToken(token) => Error::new_parsing_with_token(line, line_idx + 1, token),
+                    _ => e
+                })?;
+        }
+        Ok(())
+    }
 }

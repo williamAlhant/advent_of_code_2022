@@ -102,10 +102,13 @@ impl RucksackAnalyzer for RucksackAnalyzerPart2 {
 pub fn day_3_part_1<Input>(input: &mut Input) -> Result<()>
 where Input: Read
 {
-    let content = get_whole_input_as_string(input)?;
     let mut rucksack_analyzer = RucksackAnalyzerPart1::default();
 
-    day_3(content, &mut rucksack_analyzer)?;
+    do_for_each_line(input, |line|
+        rucksack_analyzer.parse_line(line)
+    )?;
+
+    println!("Sum is {}", rucksack_analyzer.get_sum());
 
     Ok(())
 }
@@ -113,23 +116,11 @@ where Input: Read
 pub fn day_3_part_2<Input>(input: &mut Input) -> Result<()>
 where Input: Read
 {
-    let content = get_whole_input_as_string(input)?;
     let mut rucksack_analyzer = RucksackAnalyzerPart2::new();
 
-    day_3(content, &mut rucksack_analyzer)?;
-
-    Ok(())
-}
-
-fn day_3<T>(input_content: String, rucksack_analyzer: &mut T) -> Result<()> 
-where T: RucksackAnalyzer {
-    for (line_idx, line) in input_content.lines().enumerate() {
-        rucksack_analyzer.parse_line(line).map_err(
-            |e| match e {
-                Error::ParsingToken(token) => Error::new_parsing_with_token(line, line_idx + 1, token),
-                _ => e
-            })?;
-    }
+    do_for_each_line(input, |line|
+        rucksack_analyzer.parse_line(line)
+    )?;
 
     println!("Sum is {}", rucksack_analyzer.get_sum());
 
