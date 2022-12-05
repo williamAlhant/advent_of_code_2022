@@ -4,6 +4,8 @@ pub enum Error {
     Parsing(Parsing),
     #[error("Parsing error")]
     ParsingToken(Token),
+    #[error("Unexpected lack of input")]
+    UnexpectedInputEnd,
     #[error("Not UTF-8")]
     NotUtf8,
     #[error("No solution")]
