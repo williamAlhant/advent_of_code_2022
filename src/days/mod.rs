@@ -6,6 +6,7 @@ pub mod day_4;
 pub mod day_5;
 pub mod y2020_day_1;
 pub mod y2020_day_25;
+mod parse;
 
 pub use error::{Error, Result, Parsing};
 

@@ -46,13 +46,12 @@ where Input: Read
 
 mod parse {
 
+    use crate::days::parse::*;
     use std::ops::RangeInclusive;
     use nom::{
-        IResult, 
-        bytes::complete::tag, 
-        character::complete::digit1,
+        IResult,
+        bytes::complete::tag,
         sequence::tuple,
-        combinator::map_res
     };
 
     pub fn parse_line(line: &str) -> super::Result<(RangeInclusive<u32>, RangeInclusive<u32>)>
@@ -72,13 +71,8 @@ mod parse {
     }
 
     pub fn parse_range<'a>(i: &'a str) -> IResult<&'a str, RangeInclusive<u32>> {
-        tuple((parse_u32, tag("-"), parse_u32))(i)
+        tuple((parse_int, tag("-"), parse_int))(i)
             .and_then(|(i, (a, _, b))| Ok((i, a..=b)))
-    }
-
-    fn parse_u32(input: &str
-    ) -> IResult<&str, u32> {
-        map_res(digit1, |s: &str| s.parse::<u32>())(input)
     }
 
 }

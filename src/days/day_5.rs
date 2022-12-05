@@ -93,12 +93,11 @@ fn parse_crates(line: &str) -> Result<Vec<(usize, char)>>
 
 mod parse {
 
+    use crate::days::parse::*;
     use nom::{
-        IResult, 
-        bytes::complete::tag, 
-        character::complete::digit1,
+        IResult,
+        bytes::complete::tag,
         sequence::{tuple, preceded},
-        combinator::map_res
     };
 
     pub fn parse_move(line: &str) -> super::Result<(usize, usize, usize)>
@@ -114,12 +113,6 @@ mod parse {
             preceded(tag(" from "), parse_int),
             preceded(tag(" to "), parse_int),
         ))(i)
-    }
-
-    fn parse_int<T>(input: &str) -> IResult<&str, T>
-    where T: std::str::FromStr
-    {
-        map_res(digit1, |s: &str| s.parse::<T>())(input)
     }
 
 }
