@@ -16,23 +16,16 @@ fn main() -> Result<()> {
         .get_matches();
 
     type DayFn<Input, T> = fn(&mut Input) -> days::Result<T>;
-    let map_day_str_to_fn = BTreeMap::from([
-        ("day_1_part_1", day_1_part_1 as DayFn<_, _>),
-        ("day_1_part_2", day_1_part_2 as DayFn<_, _>),
-        ("day_2_part_1", day_2_part_1 as DayFn<_, _>),
-        ("day_2_part_2", day_2_part_2 as DayFn<_, _>),
-        ("day_3_part_1", day_3_part_1 as DayFn<_, _>),
-        ("day_3_part_2", day_3_part_2 as DayFn<_, _>),
-        ("day_4_part_1", day_4_part_1 as DayFn<_, _>),
-        ("day_4_part_2", day_4_part_2 as DayFn<_, _>),
-        ("day_5_part_1", day_5_part_1 as DayFn<_, _>),
-        ("day_5_part_2", day_5_part_2 as DayFn<_, _>),
-        ("day_6_part_1", day_6_part_1 as DayFn<_, _>),
-        ("day_6_part_2", day_6_part_2 as DayFn<_, _>),
-        ("y2020_day_1_part_1", days::y2020_day_1::y2020_day_1_part_1 as DayFn<_, _>),
-        ("y2020_day_1_part_2", days::y2020_day_1::y2020_day_1_part_2 as DayFn<_, _>),
-        ("y2020_day_25_part_1", days::y2020_day_25::y2020_day_25_part_1 as DayFn<_, _>),
-    ]);
+    let map_day_str_to_fn = BTreeMap::from(
+        seq_macro::seq!(N in 1..=6 {
+            [
+                #(
+                    (concat!("day_", N, "_part_1"), paste::paste!([<day_ N _part_1>]) as DayFn<_, _>),
+                    (concat!("day_", N, "_part_2"), paste::paste!([<day_ N _part_2>]) as DayFn<_, _>),
+                )*
+            ]
+        })
+    );
     let day_str = matches.get_one::<String>("day").unwrap();
     let day_fn = map_day_str_to_fn.get(day_str.as_str()).context("Did not find day fn")?;
 
