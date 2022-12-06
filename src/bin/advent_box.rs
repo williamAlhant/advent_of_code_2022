@@ -27,6 +27,8 @@ fn main() -> Result<()> {
         ("day_4_part_2", day_4_part_2 as DayFn<_, _>),
         ("day_5_part_1", day_5_part_1 as DayFn<_, _>),
         ("day_5_part_2", day_5_part_2 as DayFn<_, _>),
+        ("day_6_part_1", day_6_part_1 as DayFn<_, _>),
+        ("day_6_part_2", day_6_part_2 as DayFn<_, _>),
         ("y2020_day_1_part_1", days::y2020_day_1::y2020_day_1_part_1 as DayFn<_, _>),
         ("y2020_day_1_part_2", days::y2020_day_1::y2020_day_1_part_2 as DayFn<_, _>),
         ("y2020_day_25_part_1", days::y2020_day_25::y2020_day_25_part_1 as DayFn<_, _>),
