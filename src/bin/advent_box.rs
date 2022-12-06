@@ -35,9 +35,8 @@ fn main() -> Result<()> {
     ]);
     let day_str = matches.get_one::<String>("day").unwrap();
     let day_fn = map_day_str_to_fn.get(day_str.as_str()).context("Did not find day fn")?;
-    let day_input_filepath = format!("inputs/{day_str}.txt");
-    let mut day_input_file = File::open(&day_input_filepath)
-        .with_context(|| format!("Cannot open {day_input_filepath}"))?;
+
+    let mut day_input_file = get_input_file(day_str)?;
 
     day_fn(&mut day_input_file).map_err(|err| {
         match err {
@@ -49,6 +48,28 @@ fn main() -> Result<()> {
     })?;
 
     Ok(())
+}
+
+fn get_input_file(day_str: &String) -> Result<File>
+{
+    let day_input_filepath_1 = format!("inputs/{day_str}.txt");
+    let day_input_file = File::open(&day_input_filepath_1);
+    if day_input_file.is_ok() {
+        return Ok(day_input_file.unwrap());
+    }
+    let day_input_filepath_2 = format!("inputs/{}.txt", strip_part(day_str)?);
+    let day_input_file = File::open(&day_input_filepath_2);
+    if day_input_file.is_ok() {
+        return Ok(day_input_file.unwrap());
+    }
+
+    Err(anyhow!("Cannot open input file (either {} or {})", day_input_filepath_1, day_input_filepath_2))
+}
+
+fn strip_part(day_str: &String) -> Result<String>
+{
+    let part_pos = day_str.find("_part_").ok_or(anyhow!("No _part_ in day_str"))?;
+    Ok(format!("{}", &day_str[0..part_pos]))
 }
 
 fn get_parsing_error_msg(parsing: days::error::Parsing) -> String {
