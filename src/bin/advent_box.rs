@@ -17,7 +17,7 @@ fn main() -> Result<()> {
 
     type DayFn<Input, T> = fn(&mut Input) -> days::Result<T>;
     let map_day_str_to_fn = BTreeMap::from(
-        seq_macro::seq!(N in 1..=6 {
+        seq_macro::seq!(N in 1..=7 {
             [
                 #(
                     (concat!("day_", N, "_part_1"), paste::paste!([<day_ N _part_1>]) as DayFn<_, _>),

@@ -5,6 +5,7 @@ pub mod day_3;
 pub mod day_4;
 pub mod day_5;
 pub mod day_6;
+pub mod day_7;
 pub mod y2020_day_1;
 pub mod y2020_day_25;
 mod parse;
@@ -24,6 +25,8 @@ pub mod all_days {
     pub use super::day_5::day_5_part_2;
     pub use super::day_6::day_6_part_1;
     pub use super::day_6::day_6_part_2;
+    pub use super::day_7::day_7_part_1;
+    pub use super::day_7::day_7_part_2;
 }
 
 mod internal_common {
