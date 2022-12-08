@@ -9,7 +9,9 @@ pub enum Error {
     #[error("Not UTF-8")]
     NotUtf8,
     #[error("No solution")]
-    NoSolution
+    NoSolution,
+    #[error("Parsing error")]
+    ParsingWithVerboseErrorMessage(String)
 }
 
 #[derive(Debug)]

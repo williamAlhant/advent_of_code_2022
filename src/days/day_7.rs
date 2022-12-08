@@ -230,7 +230,7 @@ mod parse {
     {
         let parse_ls_entry_file = 
             map_res(
-                tuple((parse_int::<usize>, preceded(space1, parse_name))),
+                tuple((parse_int::<usize, _>, preceded(space1, parse_name))),
                 |(size, name)| Ok::<LsEntry, ()>(LsEntry::File(LsEntryFile { size, name }))
                 );
         alt((

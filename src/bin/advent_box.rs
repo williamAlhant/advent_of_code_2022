@@ -25,6 +25,7 @@ fn main() -> Result<()> {
     day_fn(&mut day_input_file).map_err(|err| {
         match err {
             days::Error::Parsing(parsing) => anyhow!(get_parsing_error_msg(parsing)),
+            days::Error::ParsingWithVerboseErrorMessage(msg) => anyhow!(msg),
             _ => anyhow!("Encountered {err} while running day fn\n\
                           details: {err:?}")
         }
