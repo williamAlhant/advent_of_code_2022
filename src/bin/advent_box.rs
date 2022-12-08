@@ -1,7 +1,6 @@
 use clap::{Command, Arg};
 use std::collections::BTreeMap;
 use advent_of_code_2022::days;
-use advent_of_code_2022::days::all_days::*;
 use anyhow::{Result, Context, anyhow};
 use std::fs::File;
 
@@ -15,16 +14,8 @@ fn main() -> Result<()> {
         )
         .get_matches();
 
-    type DayFn<Input, T> = fn(&mut Input) -> days::Result<T>;
     let map_day_str_to_fn = BTreeMap::from(
-        seq_macro::seq!(N in 1..=8 {
-            [
-                #(
-                    (concat!("day_", N, "_part_1"), paste::paste!([<day_ N _part_1>]) as DayFn<_, _>),
-                    (concat!("day_", N, "_part_2"), paste::paste!([<day_ N _part_2>]) as DayFn<_, _>),
-                )*
-            ]
-        })
+        days::DAYS_FUNCS_NAMES_AND_PTRS
     );
     let day_str = matches.get_one::<String>("day").unwrap();
     let day_fn = map_day_str_to_fn.get(day_str.as_str()).context("Did not find day fn")?;

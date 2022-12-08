@@ -13,24 +13,27 @@ mod parse;
 
 pub use error::{Error, Result, Parsing};
 
-pub mod all_days {
-    pub use super::day_1::day_1_part_1;
-    pub use super::day_1::day_1_part_2;
-    pub use super::day_2::day_2_part_1;
-    pub use super::day_2::day_2_part_2;
-    pub use super::day_3::day_3_part_1;
-    pub use super::day_3::day_3_part_2;
-    pub use super::day_4::day_4_part_1;
-    pub use super::day_4::day_4_part_2;
-    pub use super::day_5::day_5_part_1;
-    pub use super::day_5::day_5_part_2;
-    pub use super::day_6::day_6_part_1;
-    pub use super::day_6::day_6_part_2;
-    pub use super::day_7::day_7_part_1;
-    pub use super::day_7::day_7_part_2;
-    pub use super::day_8::day_8_part_1;
-    pub use super::day_8::day_8_part_2;
+// will generate something like
+// [
+//     ("day_1_part1", day_1::day_1_part_1 as fn(&mut Input) -> Result<()>),
+//     ("day_1_part2", day_1::day_1_part_2 as fn(&mut Input) -> Result<()>),
+//     ("day_2_part1", day_2::day_2_part_1 as fn(&mut Input) -> Result<()>),
+//     (etc)
+// ]
+macro_rules! make_days_funcs_names_and_ptrs {
+    ($day_max:expr, $Input:ty) => {
+        pub const DAYS_FUNCS_NAMES_AND_PTRS: [(&str, fn(&mut $Input) -> Result<()>); $day_max*2] =
+            seq_macro::seq!(N in 1..=$day_max {
+                [
+                    #(
+                        (concat!("day_", N, "_part_1"), paste::paste!([<day_ N>]::[<day_ N _part_1>]) as fn(&mut $Input) -> Result<()>),
+                        (concat!("day_", N, "_part_2"), paste::paste!([<day_ N>]::[<day_ N _part_2>]) as fn(&mut $Input) -> Result<()>),
+                    )*
+                ]
+            });
+    };
 }
+make_days_funcs_names_and_ptrs!(8, std::fs::File);
 
 mod internal_common {
     pub use super::{Result, Error};
