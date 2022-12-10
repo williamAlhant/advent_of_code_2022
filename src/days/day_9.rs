@@ -101,7 +101,6 @@ enum Direction {
 
 mod parse {
     use crate::days::parse::*;
-    use nom::Finish;
     use nom::{
         character::complete::{newline, space1, anychar},
         sequence::{tuple, preceded, terminated},
@@ -130,12 +129,7 @@ mod parse {
                 opt(newline)
             )(i);
 
-            if res.is_err() {
-                let e = res.finish().err().unwrap();
-                return Err(super::Error::ParsingWithVerboseErrorMessage(nom::error::convert_error(input, e)));
-            }
-
-            let (new_i, (a, b)) = res.ok().unwrap();
+            let (new_i, (a, b)) = make_verbose_error_message(input, res)?;
 
             func(a, b)?;
             i = new_i;

@@ -1,8 +1,10 @@
 use nom::{
     IResult, 
     character::complete::digit1,
-    error::ParseError
+    error::{ParseError, VerboseError, convert_error}
 };
+use nom::Finish;
+use crate::days;
 
 pub fn parse_int<'a, T, E>(input: &'a str) -> IResult<&'a str, T, E>
 where T: std::str::FromStr,
@@ -15,4 +17,17 @@ E: ParseError<&'a str>
         },
         Err(a) => Err(a),
     }
+}
+
+pub fn make_verbose_error_message<I, O>(
+    full_input: I,
+    res: IResult<I, O, VerboseError<I>>) -> Result<(I, O), days::error::Error>
+where I: std::ops::Deref<Target = str> + std::fmt::Debug
+{
+    if res.is_err() {
+        let e = res.finish().err().unwrap();
+        return Err(days::Error::ParsingWithVerboseErrorMessage(convert_error(full_input, e)));
+    }
+
+    Ok(res.unwrap())
 }
