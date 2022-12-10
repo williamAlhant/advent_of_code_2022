@@ -8,6 +8,7 @@ pub mod day_6;
 pub mod day_7;
 pub mod day_8;
 pub mod day_9;
+pub mod day_10;
 pub mod y2020_day_1;
 pub mod y2020_day_25;
 mod parse;
@@ -34,7 +35,7 @@ macro_rules! make_days_funcs_names_and_ptrs {
             });
     };
 }
-make_days_funcs_names_and_ptrs!(9, std::fs::File);
+make_days_funcs_names_and_ptrs!(10, std::fs::File);
 
 mod internal_common {
     pub use super::{Result, Error};
