@@ -1,6 +1,7 @@
 use crate::days::internal_common::*;
+use macro_lib::Grid2D;
 
-#[derive(Debug)]
+#[derive(Debug, Grid2D)]
 struct Grid {
     data: Vec<u8>,
     width: usize,
@@ -13,6 +14,11 @@ struct Grid {
 struct Node {
     id: usize,
     data: u8
+}
+
+impl Grid2DTypes for Grid {
+    type DataType = u8;
+    type Node = Node;
 }
 
 impl Grid {
@@ -62,54 +68,6 @@ impl Grid {
             start,
             end
         })
-    }
-
-    fn get_node_from_id(&self, id: usize) -> Node
-    {
-        Node {
-            id: id,
-            data: self.data[id]
-        }
-    }
-
-    fn get_node_left(&self, current: &Node) -> Option<Node>
-    {
-        let column = current.id % self.width;
-        if column == 0 {
-            return None;
-        }
-        let dest_id = current.id - 1;
-        Some(self.get_node_from_id(dest_id))
-    }
-
-    fn get_node_right(&self, current: &Node) -> Option<Node>
-    {
-        let column = current.id % self.width;
-        if column == self.width - 1 {
-            return None;
-        }
-        let dest_id = current.id + 1;
-        Some(self.get_node_from_id(dest_id))
-    }
-
-    fn get_node_up(&self, current: &Node) -> Option<Node>
-    {
-        let row = current.id / self.width;
-        if row == 0 {
-            return None;
-        }
-        let dest_id = current.id - self.width;
-        Some(self.get_node_from_id(dest_id))
-    }
-
-    fn get_node_down(&self, current: &Node) -> Option<Node>
-    {
-        let row = current.id / self.width;
-        if row == self.height - 1 {
-            return None;
-        }
-        let dest_id = current.id + self.width;
-        Some(self.get_node_from_id(dest_id))
     }
 
 }

@@ -1,6 +1,7 @@
 use crate::days::internal_common::*;
+use macro_lib::Grid2D;
 
-#[derive(Debug)]
+#[derive(Debug, Grid2D)]
 struct Grid {
     data: Vec<u32>,
     width: usize,
@@ -10,7 +11,19 @@ struct Grid {
 #[derive(Debug, Clone)]
 struct Node {
     id: usize,
-    tree_height: usize
+    data: u32
+}
+
+impl Node {
+    fn tree_height(&self) -> u32
+    {
+        self.data
+    }
+}
+
+impl Grid2DTypes for Grid {
+    type DataType = usize;
+    type Node = Node;
 }
 
 impl Grid {
@@ -40,54 +53,6 @@ impl Grid {
             width,
             height
         })
-    }
-
-    fn get_node_from_id(&self, id: usize) -> Node
-    {
-        Node {
-            id: id,
-            tree_height: self.data[id] as usize
-        }
-    }
-
-    fn get_node_left(&self, current: &Node) -> Option<Node>
-    {
-        let column = current.id % self.width;
-        if column == 0 {
-            return None;
-        }
-        let dest_id = current.id - 1;
-        Some(self.get_node_from_id(dest_id))
-    }
-
-    fn get_node_right(&self, current: &Node) -> Option<Node>
-    {
-        let column = current.id % self.width;
-        if column == self.width - 1 {
-            return None;
-        }
-        let dest_id = current.id + 1;
-        Some(self.get_node_from_id(dest_id))
-    }
-
-    fn get_node_up(&self, current: &Node) -> Option<Node>
-    {
-        let row = current.id / self.width;
-        if row == 0 {
-            return None;
-        }
-        let dest_id = current.id - self.width;
-        Some(self.get_node_from_id(dest_id))
-    }
-
-    fn get_node_down(&self, current: &Node) -> Option<Node>
-    {
-        let row = current.id / self.width;
-        if row == self.height - 1 {
-            return None;
-        }
-        let dest_id = current.id + self.width;
-        Some(self.get_node_from_id(dest_id))
     }
 
     fn is_node_visible_from_outside(&self, node: &Node) -> bool
@@ -124,7 +89,7 @@ impl Grid {
         while next_in_dir_maybe.is_some() {
             let next_in_dir = next_in_dir_maybe.unwrap();
 
-            if next_in_dir.tree_height < node.tree_height {
+            if next_in_dir.tree_height() < node.tree_height() {
                 next_in_dir_maybe = dir_func(&next_in_dir);
             }
             else {
@@ -145,7 +110,7 @@ impl Grid {
             viewing_dist += 1;
             let next_in_dir = next_in_dir_maybe.unwrap();
 
-            if next_in_dir.tree_height < node.tree_height {
+            if next_in_dir.tree_height() < node.tree_height() {
                 next_in_dir_maybe = dir_func(&next_in_dir);
             }
             else {

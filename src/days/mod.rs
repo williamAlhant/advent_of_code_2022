@@ -43,6 +43,19 @@ mod internal_common {
     pub use super::{Result, Error};
     pub use std::io::Read;
 
+    pub trait Grid2DTypes {
+        type DataType;
+        type Node;
+    }
+
+    pub trait Grid2D: Grid2DTypes {
+        fn get_node_from_id(&self, id: usize) -> Self::Node;
+        fn get_node_left(&self, current: &Self::Node) -> Option<Self::Node>;
+        fn get_node_right(&self, current: &Self::Node) -> Option<Self::Node>;
+        fn get_node_up(&self, current: &Self::Node) -> Option<Self::Node>;
+        fn get_node_down(&self, current: &Self::Node) -> Option<Self::Node>;
+    }
+
     pub fn get_whole_input_as_string<Input>(input: &mut Input) -> Result<String>
     where Input: Read {
         let mut content = String::new();
