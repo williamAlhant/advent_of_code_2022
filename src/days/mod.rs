@@ -14,6 +14,7 @@ pub mod day_12;
 pub mod day_13;
 pub mod day_14;
 pub mod day_15;
+pub mod day_16;
 pub mod y2020_day_1;
 pub mod y2020_day_25;
 mod parse;
@@ -40,7 +41,7 @@ macro_rules! make_days_funcs_names_and_ptrs {
             });
     };
 }
-make_days_funcs_names_and_ptrs!(15, std::fs::File);
+make_days_funcs_names_and_ptrs!(16, std::fs::File);
 
 mod internal_common {
     pub use super::{Result, Error};
@@ -63,6 +64,7 @@ mod internal_common {
     where Input: Read {
         let mut content = String::new();
         input.read_to_string(&mut content).map_err(|_| Error::NotUtf8)?;
+        let content = content.replace("\r", "");
         Ok(content)
     }
 

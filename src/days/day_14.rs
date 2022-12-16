@@ -250,16 +250,16 @@ impl Grid {
         SandUnitFinalState::Abyss
     }
 
-    fn print(&self)
-    {
-        for i_y in 0..self.height {
-            let mut line_buffer = String::with_capacity(self.width);
-            for i_x in 0..self.width {
-                line_buffer.push(self.data[i_y * self.width + i_x].to_char());
-            }
-            println!("{}", line_buffer);
-        }
-    }
+    // fn print(&self)
+    // {
+    //     for i_y in 0..self.height {
+    //         let mut line_buffer = String::with_capacity(self.width);
+    //         for i_x in 0..self.width {
+    //             line_buffer.push(self.data[i_y * self.width + i_x].to_char());
+    //         }
+    //         println!("{}", line_buffer);
+    //     }
+    // }
 }
 
 mod parse {

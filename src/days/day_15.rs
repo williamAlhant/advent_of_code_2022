@@ -130,7 +130,7 @@ mod parse {
         sequence::{terminated, separated_pair, preceded, pair},
         combinator::map_res,
         bytes::complete::tag,
-        multi::{separated_list0, many0},
+        multi::many0,
         IResult,
         error::{ParseError, FromExternalError}
     };
