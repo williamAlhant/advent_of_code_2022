@@ -154,18 +154,9 @@ fn compute_grid_size(lava_points: &Vec<Point>) -> (usize, usize, usize)
     (size_x, size_y, size_z)
 }
 
-#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
-struct Point {
-    x: i32,
-    y: i32,
-    z: i32
-}
+type Point = crate::days::points::Point3<i32>;
 
 impl Point {
-    fn from_xyz(x: i32, y: i32, z:i32) -> Self
-    {
-        Self {x, y, z}
-    }
 
     fn get_cube_neighbors(&self) -> [Self; 6] {
         [

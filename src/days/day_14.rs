@@ -72,11 +72,7 @@ fn get_min_max(lines: &Vec<Line>) -> (u32, u32, u32) // min_x, max_x, max_y
 
 type Line = Vec<Point>;
 
-#[derive(Clone, Debug, PartialEq, Eq)]
-struct Point {
-    x: u32,
-    y: u32
-}
+type Point = crate::days::points::Point2<u32>;
 
 enum Direction {
     Up,

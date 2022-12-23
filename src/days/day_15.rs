@@ -110,11 +110,7 @@ fn combine_overlapping_ranges(combined_ranges: &mut Vec<Range<i32>>)
 //     Some(b.start..b.end.min(a.end))
 // }
 
-#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
-struct Point {
-    x: i32,
-    y: i32
-}
+type Point = crate::days::points::Point2<i32>;
 
 impl Point {
     fn distance(&self, other: &Self) -> i32

@@ -20,6 +20,7 @@ pub mod day_18;
 pub mod y2020_day_1;
 pub mod y2020_day_25;
 mod parse;
+mod points;
 
 pub use error::{Error, Result, Parsing};
 

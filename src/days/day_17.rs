@@ -1,6 +1,5 @@
 use crate::days::internal_common::*;
 use std::fmt;
-use auto_ops::impl_op_ex;
 
 pub fn day_17_part_1<Input>(input: &mut Input) -> Result<()>
 where Input: Read
@@ -313,25 +312,4 @@ fn get_shape_defs() -> Vec<ShapeDef>
     shape_defs
 }
 
-#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
-struct Point {
-    x: i32,
-    y: i32
-}
-
-impl Point {
-    fn from_xy(x: i32, y: i32) -> Self
-    {
-        Self {
-            x,
-            y
-        }
-    }
-}
-
-impl_op_ex!(+ |a: &Point, b: &Point| -> Point {
-    Point {
-        x: a.x + b.x,
-        y: a.y + b.y
-    }
-});
+type Point = crate::days::points::Point2<i32>;
