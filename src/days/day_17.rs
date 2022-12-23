@@ -65,7 +65,6 @@ where Input: Read
     let mut known_states: Vec<Option<(MoveShape, NumStuff)>> = vec![None; 256];
     let mut found_period = false;
     let mut stop_after_n_rocks = 0;
-    let mut period = 0;
     let mut periodic_height_diff = 0;
     let mut predicted_num_periods = 0;
 
@@ -84,7 +83,7 @@ where Input: Read
                     if previous_state == current_state {
                         found_period = true;
                         println!("Matching already known state at y={}, num_rocks={}", grid.reached_y, num_rocks);
-                        period = current_num_stuff.num_rocks - previous_num_stuff.num_rocks;
+                        let period = current_num_stuff.num_rocks - previous_num_stuff.num_rocks;
                         periodic_height_diff = current_num_stuff.reached_height - previous_num_stuff.reached_height;
                         // A + N*period + B = I
                         let terms_i: usize = 1_000_000_000_000;
