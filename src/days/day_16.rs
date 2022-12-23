@@ -330,13 +330,7 @@ fn remap_valves_ids(valves: &mut Vec<Valve>)
 
 mod parse {
     use crate::days::parse::*;
-    use nom::{
-        character::complete::newline,
-        sequence::{terminated, preceded},
-        branch::alt,
-        bytes::complete::{tag, take},
-        multi::{separated_list0, many0}
-    };
+    use crate::days::parse::nom_goes_brrr::*;
     use nom::Parser;
     use super::Valve;
 

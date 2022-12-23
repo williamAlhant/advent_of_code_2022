@@ -264,13 +264,7 @@ impl Grid {
 
 mod parse {
     use crate::days::parse::*;
-    use nom::{
-        character::complete::newline,
-        sequence::{terminated, separated_pair},
-        combinator::map_res,
-        bytes::complete::tag,
-        multi::{separated_list0, many0},
-    };
+    use crate::days::parse::nom_goes_brrr::*;
 
     pub(super) fn parse_and_collect_lines(input: &str) -> super::Result<Vec<super::Line>>
     {

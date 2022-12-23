@@ -105,15 +105,7 @@ struct Monkey {
 
 mod parse {
     use crate::days::parse::*;
-    use nom::{
-        character::complete::{newline, anychar},
-        sequence::{terminated, delimited, separated_pair, tuple},
-        combinator::{opt, map_res},
-        bytes::complete::tag,
-        multi::many0,
-        error::context,
-        branch::alt
-    };
+    use crate::days::parse::nom_goes_brrr::*;
 
     pub(super) fn parse_and_do_for_each_monkey<F>(input: &str, mut func: F) -> super::Result<()>
     where F: FnMut(super::Monkey) -> super::Result<()>

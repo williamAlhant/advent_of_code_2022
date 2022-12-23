@@ -125,15 +125,7 @@ impl Point {
 
 mod parse {
     use crate::days::parse::*;
-    use nom::{
-        character::complete::newline,
-        sequence::{terminated, separated_pair, preceded, pair},
-        combinator::map_res,
-        bytes::complete::tag,
-        multi::many0,
-        IResult,
-        error::{ParseError, FromExternalError}
-    };
+    use crate::days::parse::nom_goes_brrr::*;
     use super::Point;
 
     fn parse_point<'a, E>(input: &'a str) -> IResult<&'a str, Point, E>

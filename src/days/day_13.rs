@@ -142,16 +142,7 @@ impl Ord for PacketElement {
 
 mod parse {
     use crate::days::parse::*;
-    use nom::{
-        character::complete::newline,
-        sequence::terminated,
-        combinator::opt,
-        bytes::complete::tag,
-        multi::{separated_list0, many0},
-        error::ParseError,
-        branch::alt,
-        IResult
-    };
+    use crate::days::parse::nom_goes_brrr::*;
 
     fn parse_packet<'a, E>(input: &'a str) -> IResult<&'a str, super::PacketElement, E>
     where E: ParseError<&'a str>

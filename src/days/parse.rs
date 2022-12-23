@@ -36,3 +36,16 @@ where I: std::ops::Deref<Target = str> + std::fmt::Debug
 
     Ok(res.unwrap())
 }
+
+pub mod nom_goes_brrr {
+    pub use nom::{
+        character::complete::{newline, anychar},
+        sequence::{terminated, preceded, separated_pair, pair, delimited, tuple},
+        branch::alt,
+        combinator::{map_res, opt},
+        bytes::complete::{tag, take},
+        multi::{separated_list0, many0},
+        error::{ParseError, FromExternalError, context},
+        IResult,
+    };
+}
