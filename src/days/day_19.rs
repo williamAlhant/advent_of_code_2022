@@ -215,13 +215,7 @@ impl BBSolv {
         println!("Decision to add {} ore {} clay {} obsi {} geo", add_r_ore, add_r_clay, add_r_obsi, add_r_geo);
     }
 
-    fn print_decision_node(&self, node_id: NodeId)
-    {
-        let after = &self.nodes[node_id];
-        let before = &self.nodes[after.parent];
-        BBSolv::print_decision(&before.resource_list, &after.resource_list);
-    }
-
+    #[allow(dead_code)]
     fn print_best(&self)
     {
         let mut ancestry = Vec::new();
