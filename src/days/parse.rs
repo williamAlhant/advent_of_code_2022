@@ -39,7 +39,7 @@ where I: std::ops::Deref<Target = str> + std::fmt::Debug
 
 pub mod nom_goes_brrr {
     pub use nom::{
-        character::complete::{newline, anychar},
+        character::complete::{newline, anychar, alpha1},
         sequence::{terminated, preceded, separated_pair, pair, delimited, tuple},
         branch::alt,
         combinator::{map_res, opt},
