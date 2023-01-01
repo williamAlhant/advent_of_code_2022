@@ -1,4 +1,4 @@
-use std::ops::Add;
+use std::ops::{Add, Neg};
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Point2<T> {
@@ -48,6 +48,28 @@ impl<T> Add<Self> for &Point2<T> where T: Add<T, Output = T> + Copy {
         Self::Output {
             x: self.x + rhs.x,
             y: self.y + rhs.y,
+        }
+    }
+}
+
+impl<T> Neg for &Point2<T> where T: Neg<Output = T> + Copy {
+    type Output = Point2<T>;
+
+    fn neg(self) -> Self::Output {
+        Self::Output {
+            x: -self.x,
+            y: -self.y,
+        }
+    }
+}
+
+impl<T> Neg for Point2<T> where T: Neg<Output = T> {
+    type Output = Point2<T>;
+
+    fn neg(self) -> Self::Output {
+        Self::Output {
+            x: -self.x,
+            y: -self.y,
         }
     }
 }
@@ -105,6 +127,30 @@ impl<T> Add<Self> for &Point3<T> where T: Add<T, Output = T> + Copy {
             x: self.x + rhs.x,
             y: self.y + rhs.y,
             z: self.z + rhs.z,
+        }
+    }
+}
+
+impl<T> Neg for &Point3<T> where T: Neg<Output = T> + Copy {
+    type Output = Point3<T>;
+
+    fn neg(self) -> Self::Output {
+        Self::Output {
+            x: -self.x,
+            y: -self.y,
+            z: -self.z,
+        }
+    }
+}
+
+impl<T> Neg for Point3<T> where T: Neg<Output = T> {
+    type Output = Point3<T>;
+
+    fn neg(self) -> Self::Output {
+        Self::Output {
+            x: -self.x,
+            y: -self.y,
+            z: -self.z,
         }
     }
 }
