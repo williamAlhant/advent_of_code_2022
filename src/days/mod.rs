@@ -67,6 +67,41 @@ mod internal_common {
         fn get_node_down(&self, current: &Self::Node) -> Option<Self::Node>;
     }
 
+    pub trait WithDataType {
+        type DataType;
+    }
+
+    pub trait Grid2DAccessWithPoint<PointTy>: WithDataType {
+        fn get_content_at_point(&self, point: &PointTy) -> Option<Self::DataType>;
+        fn put_content_at_point(&mut self, point: &PointTy, content: Self::DataType);
+    }
+
+    #[macro_export]
+    macro_rules! impl_grid_2d_access_with_point {
+        ($PointType:ty, $CoordType:ty, $GridType:ty) => {
+            impl Grid2DAccessWithPoint<$PointType> for $GridType {
+                fn get_content_at_point(&self, point: &$PointType) -> Option<Self::DataType>
+                {
+                    if !(0..(self.size_x as $CoordType)).contains(&point.x) ||
+                        !(0..(self.size_y as $CoordType)).contains(&point.y) {
+                        return None;
+                    }
+
+                    let (x, y) = ((point.x as usize), (point.y as usize));
+                    let id = y * self.size_x + x;
+                    Some(self.data[id].clone())
+                }
+
+                fn put_content_at_point(&mut self, point: &$PointType, content: Self::DataType)
+                {
+                    let (x, y) = ((point.x as usize), (point.y as usize));
+                    let id = y * self.size_x + x;
+                    self.data[id] = content;
+                }
+            }
+        }
+    }
+
     pub fn get_whole_input_as_string<Input>(input: &mut Input) -> Result<String>
     where Input: Read {
         let mut content = String::new();

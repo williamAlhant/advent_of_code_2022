@@ -445,35 +445,11 @@ impl Grid {
     }
 }
 
-
-trait Grid2DAccessWithPoint {
-    type Content;
-    fn get_content_at_point(&self, point: &Point) -> Option<Self::Content>;
-    fn put_content_at_point(&mut self, point: &Point, content: Self::Content);
+impl WithDataType for Grid {
+    type DataType = PointContent;
 }
 
-impl Grid2DAccessWithPoint for Grid {
-    type Content = PointContent;
-
-    fn get_content_at_point(&self, point: &Point) -> Option<Self::Content>
-    {
-        if !(0..(self.size_x as i32)).contains(&point.x) ||
-            !(0..(self.size_y as i32)).contains(&point.y) {
-            return None;
-        }
-
-        let (x, y) = ((point.x as usize), (point.y as usize));
-        let id = y * self.size_x + x;
-        Some(self.data[id].clone())
-    }
-
-    fn put_content_at_point(&mut self, point: &Point, content: Self::Content)
-    {
-        let (x, y) = ((point.x as usize), (point.y as usize));
-        let id = y * self.size_x + x;
-        self.data[id] = content;
-    }
-}
+crate::impl_grid_2d_access_with_point!(Point, i32, Grid);
 
 #[derive(Debug)]
 enum Move {
