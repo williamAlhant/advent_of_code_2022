@@ -128,6 +128,13 @@ impl WithDataType for Grid {
 
 crate::impl_grid_2d_access_with_point!(Point, i32, Grid);
 
+impl Grid {
+    fn get_content_at_point(&self, point: &Point) -> Option<PointContent>
+    {
+        self.get_ref_content_at_point(point).map(|x| x.clone())
+    }
+}
+
 #[derive(Clone, Copy, Debug)]
 enum Direction {
     Top,

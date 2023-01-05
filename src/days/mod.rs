@@ -22,6 +22,7 @@ pub mod day_20;
 pub mod day_21;
 pub mod day_22;
 pub mod day_23;
+pub mod day_24;
 pub mod y2020_day_1;
 pub mod y2020_day_25;
 mod parse;
@@ -49,7 +50,7 @@ macro_rules! make_days_funcs_names_and_ptrs {
             });
     };
 }
-make_days_funcs_names_and_ptrs!(23, std::fs::File);
+make_days_funcs_names_and_ptrs!(24, std::fs::File);
 
 mod internal_common {
     pub use super::{Result, Error};
@@ -73,7 +74,7 @@ mod internal_common {
     }
 
     pub trait Grid2DAccessWithPoint<PointTy>: WithDataType {
-        fn get_content_at_point(&self, point: &PointTy) -> Option<Self::DataType>;
+        fn get_ref_content_at_point(&self, point: &PointTy) -> Option<&Self::DataType>;
         fn put_content_at_point(&mut self, point: &PointTy, content: Self::DataType);
     }
 
@@ -81,7 +82,8 @@ mod internal_common {
     macro_rules! impl_grid_2d_access_with_point {
         ($PointType:ty, $CoordType:ty, $GridType:ty) => {
             impl Grid2DAccessWithPoint<$PointType> for $GridType {
-                fn get_content_at_point(&self, point: &$PointType) -> Option<Self::DataType>
+
+                fn get_ref_content_at_point(&self, point: &$PointType) -> Option<&Self::DataType>
                 {
                     if !(0..(self.size_x as $CoordType)).contains(&point.x) ||
                         !(0..(self.size_y as $CoordType)).contains(&point.y) {
@@ -90,7 +92,7 @@ mod internal_common {
 
                     let (x, y) = ((point.x as usize), (point.y as usize));
                     let id = y * self.size_x + x;
-                    Some(self.data[id].clone())
+                    Some(&self.data[id])
                 }
 
                 fn put_content_at_point(&mut self, point: &$PointType, content: Self::DataType)
